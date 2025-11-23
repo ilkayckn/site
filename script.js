@@ -39,6 +39,24 @@ sections.forEach(section => {
 });
 
 // Gestion du formulaire de contact
+// Réinitialisation du formulaire après envoi
+document.querySelector('form').addEventListener('submit', function(e) {
+    // Laisser Formspree gérer l'envoi
+    // Après 2 secondes, réinitialiser le formulaire
+    setTimeout(() => {
+        this.reset();
+        
+        // Message de confirmation (optionnel)
+        const btn = this.querySelector('button[type="submit"]');
+        const originalText = btn.textContent;
+        btn.textContent = 'Message envoyé !';
+        
+        setTimeout(() => {
+            btn.textContent = originalText;
+        }, 3000);
+        
+    }, 2000);
+});
 const contactForm = document.getElementById('contactForm');
 contactForm.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -96,4 +114,5 @@ function showMessages() {
     const messages = JSON.parse(localStorage.getItem('contactMessages') || '[]');
     console.table(messages);
     return messages;
+
 }
